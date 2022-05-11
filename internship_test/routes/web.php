@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/sort', [AlgorithmsController::class,'sortFive'])->name('sort');
-Route::get('/Timsolanxuathien', [AlgorithmsController::class,'Timsolanxuathien'])->name('Timsolanxuathien');
+Route::get('/filter', [AlgorithmsController::class,'filter'])->name('filter');
 
 Route::get('/form', [FormController::class,'showForm'])->name('showForm');
 Route::post('/form', [FormController::class,'form'])->name('form');
