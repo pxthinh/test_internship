@@ -15,17 +15,22 @@ class FormController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|regex:/(01)[0-9]{9}/',
+            'phone' => 'required|numeric|digits:10',
             'content'=>'required|max:255',
         ], [
             'name.required' => 'Họ và Tên không được để trống',
             'email.required' => 'Email không được để trống',
+            'email.email' => 'Email phải là một địa chỉ email hợp lệ.',
             'phone.required' => 'Số điện không được để trống',
+            'phone.numeric'=>'Số điện thoại phải là số',
+            'phone.digits' => 'Số điện thoại không hợp lệ',
             'content.required' => 'Số điện không được để trống',
+            'content.max' => 'Nội dung chỉ có 255 kí tự',
+
             
         ]);
         if ($validator->fails()) {
-            return ['status' => 400, 'errors' => $validator->errors()->all()];
+            return redirect()->route('form')->with(['status' => 400, 'errors' => $validator->errors()->all()]);
         }
        $info=new Info();
        $info->name=$request->name;
@@ -33,6 +38,6 @@ class FormController extends Controller
        $info->phone=$request->phone;
        $info->content=$request->content;
        $info->save();
-       return ['status' => 200, 'error' => 'Upload thành công!!!'];
+       return redirect()->route('form')->with(['status' => 200, 'success' => 'Thành công!!!']);
     }
 }

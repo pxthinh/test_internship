@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/form.css') }}">
-    <title>Document</title>
+    <title>Form</title>
 </head>
 <body>
             <div class="center">
@@ -28,6 +28,24 @@
                 <div class="inputbox">
                 <input type="textarea" name="content" required="required">
                 </div>
+                @if(session()->has('error'))
+                      <div class="alert alert-danger">
+                          {{ session()->get('error') }}
+                      </div>
+                      @endif
+                      @if(count($errors) > 0)
+                      <div class="alert alert-danger">
+                          <ul>
+                              @foreach($errors as $error)
+                              <li>{{$error}}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                      @endif @if(Session::has('success'))
+                      <div class="alert alert-success" style="color:green; font-size:20px">
+                          <p>{{ Session::get('success') }}</p>
+                      </div>
+                      @endif
                 <div class="row">
                   <button class="submit">Submit</button>
                   <button type="reset" class="clear">Clear</button>
